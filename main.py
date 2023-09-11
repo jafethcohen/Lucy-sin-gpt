@@ -2,6 +2,9 @@ import datetime
 import pyttsx3
 import speech_recognition as sr
 
+
+#MINUTO 26:42 DEL VÍDEO
+
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 print(voices[0].id)
