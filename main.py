@@ -18,7 +18,7 @@ import smtplib 	  	  #Envío de correos electrónicos.
 #---------------------------------
 
 #Link del video: https://www.youtube.com/watch?v=Lp9Ftuq2sVI&ab_channel=CodeWithHarry
-#MINUTO 26:42 DEL VÍDEO
+#MINUTO 31:42 DEL VÍDEO
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
