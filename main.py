@@ -81,6 +81,11 @@ if __name__ == "__main__":
         #-----------------------------------------------------
         elif "abre youtube" in query:
             webbrowser.open("youtube.com")
+        #-----------------------------------------------------
+        elif "abre google" in query:
+            webbrowser.open("google.com")
+        #------------------------------------------------------
+
             
 
     
