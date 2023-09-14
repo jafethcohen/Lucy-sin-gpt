@@ -1,8 +1,23 @@
+#Importacion de librerias
+#---------------------------------
 import datetime
+#---------------------------------
 import pyttsx3
-import speech_recognition as sr
+#---------------------------------
+import speech_recognition as sr         #reconocimiento de voz
+#---------------------------------
+#from googletrans import Translator, constants         #Para traducir
+#---------------------------------
+import wikipedia #Para buscar en Wikipedia
+#---------------------------------
+import webbrowser 	#Abrir navegador y abrir sitios Web.
+#---------------------------------
+import os 		   	  #Sistema operativo (Linux)
+#---------------------------------
+import smtplib 	  	  #Envío de correos electrónicos.
+#---------------------------------
 
-
+#Link del video: https://www.youtube.com/watch?v=Lp9Ftuq2sVI&ab_channel=CodeWithHarry
 #MINUTO 26:42 DEL VÍDEO
 
 engine = pyttsx3.init('sapi5')
@@ -41,8 +56,8 @@ def takeCommand():
     try:
         print ("Reconociendo askldjaslkd")
         query = r.recognize_google(audio, language='es')
-        print(f"El usuario dijo:  {query}")
-        
+        print(f"El usuario dijo:  {query}\n")
+
     except Exception as e:
         #print (e)
         print("¿podrías repetir?")
@@ -52,6 +67,19 @@ def takeCommand():
     
 if __name__ == "__main__":
     wishMe()
-    takeCommand()
+    while True:
+        query = takeCommand().lower()
+        #logica para ejecutar basada en query
+        #------------------Busqueda en Wikipedia-------------------------------
+        if "wikipedia" in query:
+            speak("Buscando wikipedia....")
+            query = query.replace("wikipedia", "")
+            results = wikipedia.summary(query, sentences=3 )
+            speak("Accediendo a Wikipedia ")
+            
+            speak(results)
+        #-----------------------------------------------------
+            
+
     
     
