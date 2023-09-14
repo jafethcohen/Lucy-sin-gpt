@@ -79,6 +79,8 @@ if __name__ == "__main__":
             
             speak(results)
         #-----------------------------------------------------
+        elif "abre youtube" in query:
+            webbrowser.open("youtube.com")
             
 
     
