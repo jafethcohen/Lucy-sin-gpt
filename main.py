@@ -10,13 +10,15 @@ import speech_recognition as sr         #reconocimiento de voz
 #---------------------------------
 import wikipedia #Para buscar en Wikipedia
 #---------------------------------
-import webbrowser 	#Abrir navegador y abrir sitios Web.
+import webbrowser  	#Abrir navegador y abrir sitios Web.
 #---------------------------------
 import os 		   	  #Sistema operativo (Linux)
 #---------------------------------
 import smtplib 	  	  #Envío de correos electrónicos.
 #---------------------------------
 import csv
+
+import pywhatkit
 
 #Link del video: https://www.youtube.com/watch?v=Lp9Ftuq2sVI&ab_channel=CodeWithHarry
 #MINUTO 31:42 DEL VÍDEO
@@ -45,51 +47,51 @@ def wishMe():
             
             
 def takeCommand():
-    '''   
-    Esto toma el microfono, para los comandos del usuario     
-    '''  
+    
+#----Esto toma el microfono, para los comandos del usuario     
+
     r = sr.Recognizer()
     with sr.Microphone() as source:
+        r.pause_threshold  = 3
+        speak("Escuchando...")
         print("Escuchando...")
-        r.pause_threshold  = 1
+        r.pause_threshold  = 3
         audio = r.listen(source) 
     
     try:
+        speak ("Reconociendo")
         print ("Reconociendo askldjaslkd")
         query = r.recognize_google(audio, language='es')
         print(f"El usuario dijo:  {query}\n")
 
-    except Exception as e:
-        #print (e)
+    except Exception:
         print("¿podrías repetir?")
         return "None"
     return query
-    
-    
+
+   
 if __name__ == "__main__":
     wishMe()
     while True:
         query = takeCommand().lower()
-        #logica para ejecutar basada en query
-        #------------------Busqueda en Wikipedia-------------------------------
-        if "wikipedia" in query:
-            speak("Buscando wikipedia....")
-            query = query.replace("wikipedia", "")
-            results = wikipedia.summary(query, sentences=3 )
-            speak("Accediendo a Wikipedia ")
-            
-            speak(results)
-        #-----------------------------------------------------
-        elif "abre youtube" in query:
-            webbrowser.open("youtube.com")
+        #logica para ejecutar tareas basada en query
+        #------------------Busqueda en Wikipedia-------------------------------          
+        if 'busca' in query:
+            search = query.replace('busca', '')
+            wikipedia.set_lang("es")
+            info = wikipedia.summary(search, 2)
+            speak(info)           
+        elif 'quién fue' in query:
+            search = query.replace('quién fue', '')
+            wikipedia.set_lang("es")
+            info = wikipedia.summary(search, 2)
+            speak(info)                     
+        #------------------Reproducción de contenido en youtube-----------------------------------
+        elif "reproduce" in query:
+            music = query.replace('replace', '')
+            speak("Reproduciendo en youtube")
+            pywhatkit.playonyt(music)           
         #-----------------------------------------------------
         elif "abre google" in query:
             webbrowser.open("google.com")
-        #------------------------------------------------------
-        #no funciona mi musica
-        elif " mi musica" in query :
-            music_dir = 'C:Users\\pc\\Desktop\\Lucy-sin-gpt\\Music'
-            songs = os.listdir(music_dir)
-            print (songs)
-            os.startfile(os.path.join(music_dir,songs[0]))
-        #---------------------------------------------------------
+        #---------------------------------------------------------     
