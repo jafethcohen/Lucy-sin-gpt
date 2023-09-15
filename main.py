@@ -16,6 +16,7 @@ import os 		   	  #Sistema operativo (Linux)
 #---------------------------------
 import smtplib 	  	  #Envío de correos electrónicos.
 #---------------------------------
+import csv
 
 #Link del video: https://www.youtube.com/watch?v=Lp9Ftuq2sVI&ab_channel=CodeWithHarry
 #MINUTO 31:42 DEL VÍDEO
@@ -85,8 +86,10 @@ if __name__ == "__main__":
         elif "abre google" in query:
             webbrowser.open("google.com")
         #------------------------------------------------------
-
-            
-
-    
-    
+        #no funciona mi musica
+        elif " mi musica" in query :
+            music_dir = 'C:Users\\pc\\Desktop\\Lucy-sin-gpt\\Music'
+            songs = os.listdir(music_dir)
+            print (songs)
+            os.startfile(os.path.join(music_dir,songs[0]))
+        #---------------------------------------------------------
