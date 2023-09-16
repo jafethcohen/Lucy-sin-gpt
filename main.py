@@ -21,7 +21,7 @@ import csv
 import pywhatkit
 
 #Link del video: https://www.youtube.com/watch?v=Lp9Ftuq2sVI&ab_channel=CodeWithHarry
-#MINUTO 31:42 DEL VÍDEO
+#MINUTO 38:50 DEL VÍDEO
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -95,3 +95,6 @@ if __name__ == "__main__":
         elif "abre google" in query:
             webbrowser.open("google.com")
         #---------------------------------------------------------     
+        elif "hora" in query:
+            strTime = datetime.datetime.now(),strfTime("%H:%M:%S")
+            speak("Son las {strTime}")
