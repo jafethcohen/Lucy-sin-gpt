@@ -17,8 +17,9 @@ import os 		   	  #Sistema operativo (Linux)
 import smtplib 	  	  #Envío de correos electrónicos.
 #---------------------------------
 import csv
-
 import pywhatkit
+from pygame import mixer
+import keyboard
 
 #Link del video: https://www.youtube.com/watch?v=Lp9Ftuq2sVI&ab_channel=CodeWithHarry
 #MINUTO 38:50 DEL VÍDEO
@@ -102,13 +103,27 @@ if __name__ == "__main__":
             speak("Reproduciendo en youtube")
             pywhatkit.playonyt(music)           
         #-----------------------------------------------------
-        elif "abre google" in query:
-            webbrowser.open("google.com")
+        elif "hora feliz" in query:
+            webbrowser.open("pornhub.com")
         #---------------------------------------------------------     
         elif "hora" in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
             speak(f"Son las {strTime}") 
-        
+            
+        elif "alarma" in query:
+            num = query.replace('alarma', '')
+            num = num.strip()
+            speak("Alarma programada a las: " + num + " horas")
+            while True: 
+                if datetime.datetime.now().strftime('%H:%M') == num:
+                    print("alarma activada")
+                    mixer.init()
+                    mixer.music.load("alarma.mp3")
+                    mixer.music.play()
+                    if keyboard.read_key() == "s":
+                        mixer.music.stop()
+                        break
+                                   
         elif "correo" in query:
                 
             try: 
@@ -122,4 +137,4 @@ if __name__ == "__main__":
                 speak("Lo siento, no se pudo enviar el correo")            
         
                      
-                     
+
