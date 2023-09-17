@@ -52,22 +52,32 @@ def takeCommand():
 
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        r.pause_threshold  = 3
         speak("Escuchando...")
         print("Escuchando...")
-        r.pause_threshold  = 3
+        r.pause_threshold  = 1
         audio = r.listen(source) 
     
     try:
-        speak ("Reconociendo")
         print ("Reconociendo askldjaslkd")
         query = r.recognize_google(audio, language='es')
         print(f"El usuario dijo:  {query}\n")
+        r.pause_threshold  = 2
 
     except Exception:
         print("¿podrías repetir?")
         return "None"
     return query
+
+
+
+def sendEmail (to, content):
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login('el correo de dónde se va a enviar', 'contraseña de ese correo')
+    server.sendmail('el correo de dónde se va a enviar', to, content)
+    server.close()
+    
 
    
 if __name__ == "__main__":
@@ -96,5 +106,20 @@ if __name__ == "__main__":
             webbrowser.open("google.com")
         #---------------------------------------------------------     
         elif "hora" in query:
-            strTime = datetime.datetime.now(),strfTime("%H:%M:%S")
-            speak("Son las {strTime}")
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")
+            speak(f"Son las {strTime}") 
+        
+        elif "correo" in query:
+                
+            try: 
+                speak("¿Qué debo decir?")
+                content = takeCommand()
+                to = "El correo al que lo vas a enviar"
+                sendEmail(to, content)
+                speak("Se ha enviado correctamente el correo")
+            except Exception as e:
+                print (e)
+                speak("Lo siento, no se pudo enviar el correo")            
+        
+                     
+                     
